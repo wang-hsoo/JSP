@@ -7,8 +7,9 @@
 <head>
     <meta charset="UTF-8">
     <style>  
-        table  { width: 700px; text-align: center; }
-        th     { background-color: cyan; }
+        table  { width: 700px; text-align: center;  }
+        th     { background-color: #333333; color : #ffffff;}
+        
         
         .left  { text-align: left;  }        
         .right { text-align: right; }
@@ -22,13 +23,14 @@
 <form action="add_file.jsp" enctype="multipart/form-data" method="post">
     업로드할 파일을 선택하세요.<br>
     <input type="file" name="upload"><br>
+    업로더 : <input type="text" name="uploader" ><br>
     <input type="submit" value="업로드">
 </form>
 <br>
 
 <table>
     <tr>
-        <th>파일명</th><th>업로드 시간</th><th>크기</th><th>삭제</th>
+        <th>파일명</th><th>업로드 시간</th><th>크기</th><th>작성자</th><th>삭제</th>
     </tr>
      <%
      Class.forName("org.mariadb.jdbc.Driver");
@@ -58,7 +60,9 @@
                  <td class="left"><a href="files/<%=rs.getString("fname")%>"><%=rs.getString("fname").toString()%></a></td>
                  <td><%=rs.getString("ftime" )%></td>
                  <td class="right"><%=String.format("%,d", fsize) + unit%></td>
-                 <td><a href="del_file.jsp?num=<%=rs.getInt("num")%>">X</a></td>
+                 <td class="right"><%=rs.getString("user")%></td>
+                 <td><a href="del_file.jsp?num=<%=rs.getInt("num")%>" onclick="if(!confirm(`정말 삭제하시겠습니까?`)) event.preventDefault()">X</a></td>
+                 
              </tr>
  <%          
          }

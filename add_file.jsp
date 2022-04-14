@@ -15,8 +15,10 @@
              "utf-8",                             // 인코딩
              new DefaultFileRenamePolicy()        // 동일 파일명 처리 방법
      );
- 
+ 	
+ 	 
      File file = multi.getFile("upload");         // 파일 객체 얻기
+     String uploader = request.getParameter("uploader");
      
      if (file != null){
     	 Class.forName("org.mariadb.jdbc.Driver");// 자바 커넥터 로드
@@ -29,8 +31,18 @@
  				Statement stmt = conn.createStatement(); //쿼리(문장) 객체
  		){
  				String curTime = LocalDate.now() + " "  + LocalTime.now().toString().substring(0 , 8);
- 			 	String sql = String.format("insert into webhard(fname, ftime,fsize) values ('%s', '%s', %d)",
- 			 		       				file.getName(),curTime , file.length());
+ 				
+ 				String user;
+ 				String sql;
+ 				if(uploader == null){
+ 					 sql = String.format("insert into webhard(fname, ftime,fsize) values ('%s', '%s', %d)",
+ 		       				file.getName(),curTime , file.length());
+ 				}else{
+ 					 user = multi.getParameter("uploader");
+ 					  sql = String.format("insert into webhard(fname, ftime,fsize, user) values ('%s', '%s', %d, '%s')",
+	 		       				file.getName(),curTime , file.length(), user);
+ 				}
+ 			 	
 //현재시간 substring(시작위치, 끝위치)
  			stmt.executeUpdate(sql);
  			response.sendRedirect( "webhard.jsp"); //php - header("Location:webhard.jsp")
