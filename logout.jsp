@@ -3,10 +3,12 @@
     
     <%
 
-		Cookie cookie = new Cookie("userId", null);
-		
+		/*Cookie cookie = new Cookie("userId", null);
 		cookie.setMaxAge(0);
-		response.addCookie(cookie);
+		response.addCookie(cookie);*/
+		
+		session.removeAttribute("userId");
+		
 		response.sendRedirect("login_main.jsp");
 	
 %>

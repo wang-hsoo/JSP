@@ -6,10 +6,10 @@
 	String pw = request.getParameter("pw");
 	
 	if(id.equals("admin")&&pw.equals("1234")){
-		Cookie cookie = new Cookie("userId", id);
-		
+		session.setAttribute("userId", id);
+		/*Cookie cookie = new Cookie("userId", id);
 		cookie.setMaxAge(-1);
-		response.addCookie(cookie);
+		response.addCookie(cookie);*/
 		response.sendRedirect("login_main.jsp");
 		return;
 	}

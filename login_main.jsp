@@ -9,8 +9,8 @@
 <body>
 
 <%
-	Cookie[] cookies = request.getCookies();           
-	String userId = null;
+	/*Cookie[] cookies = request.getCookies(); 
+	String userId = null
 	if (cookies != null) {
 	    for(Cookie cookie : cookies) {           
 	        if (cookie.getName().equals("userId")) { 
@@ -18,8 +18,10 @@
 	            break;
 	        }
 	    }
-	}
+	}*/
 	//userId
+	
+	String userId = (String)session.getAttribute("userId");
 	
 	if( userId == null){
 %>
