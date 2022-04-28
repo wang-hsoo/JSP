@@ -8,6 +8,7 @@
 		response.addCookie(cookie);*/
 		
 		session.removeAttribute("userId");
+		session.removeAttribute("userName");
 		
 		response.sendRedirect("login_main.jsp");
 	
